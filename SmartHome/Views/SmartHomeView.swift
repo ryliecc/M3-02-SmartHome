@@ -8,8 +8,25 @@
 import SwiftUI
 
 struct SmartHomeView: View {
+    @State var inputs: [String] = []
+    @State var textInput: String = ""
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            HStack {
+                TextField("Gib einen Namen ein...", text: $textInput)
+                Button("Hinzufügen") {
+                    if textInput.count >= 1 {
+                        inputs.append(textInput)
+                        textInput = ""
+                    }
+                }
+            }
+            .padding()
+        }
+        ForEach(inputs, id: \.self) { input in
+            Text(input)
+        }
     }
 }
 
