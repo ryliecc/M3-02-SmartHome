@@ -10,8 +10,10 @@ import SwiftUI
 struct SmartHomeView: View {
     @State var inputs: [String] = []
     @State var textInput: String = ""
+    @State var roomViewIsVisible: Bool = false
 
     var body: some View {
+        Spacer()
         VStack {
             HStack {
                 TextField("Gib einen Namen ein...", text: $textInput)
@@ -27,6 +29,12 @@ struct SmartHomeView: View {
         ForEach(inputs, id: \.self) { input in
             Text(input)
         }
+        Spacer()
+        if roomViewIsVisible {
+            RoomView()
+        }
+        Toggle("Raumvorschau anzeigen", isOn: $roomViewIsVisible)
+            .padding()
     }
 }
 
