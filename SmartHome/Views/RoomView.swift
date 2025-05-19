@@ -10,12 +10,25 @@ import SwiftUI
 struct RoomView: View {
     @Binding var roomViewIsVisible: Bool
     var body: some View {
-        Image(systemName: "house.fill")
-            .font(.system(size: 50))
-            .foregroundColor(.white)
-            .scaledToFit()
-            .frame(width: 100, height: 100)
-            .background(Color(.orange))
+        if roomViewIsVisible {
+            ZStack {
+                Image(systemName: "house.fill")
+                    .font(.system(size: 50))
+                    .foregroundColor(.white)
+                    .scaledToFit()
+                    .frame(width: 300, height: 300)
+                    .background(Color(.orange))
+                    .border(.black)
+                Button {
+                    roomViewIsVisible = false
+                } label: {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 30))
+                        .foregroundStyle(.black)
+                }
+                .offset(x: 115, y: -115)
+            }
+        }
     }
 }
 

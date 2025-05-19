@@ -13,28 +13,32 @@ struct SmartHomeView: View {
     @State var roomViewIsVisible: Bool = false
 
     var body: some View {
-        Spacer()
-        VStack {
-            HStack {
-                TextField("Gib einen Namen ein...", text: $textInput)
-                Button("Hinzufügen") {
-                    if textInput.count >= 1 {
-                        inputs.append(textInput)
-                        textInput = ""
-                    }
+        HStack {
+            TextField("Gib einen Namen ein...", text: $textInput)
+            Button("Hinzufügen") {
+                if textInput.count >= 1 {
+                    inputs.append(textInput)
+                    textInput = ""
                 }
             }
-            .padding()
         }
-        ForEach(inputs, id: \.self) { input in
-            Text(input)
+        .padding()
+        ScrollView {
+            VStack {
+                ForEach(inputs, id: \.self) { input in
+                    Text(input)
+                }
+            }
         }
-        Spacer()
-        if roomViewIsVisible {
+        VStack {
             RoomView(roomViewIsVisible: $roomViewIsVisible)
-        }
-        Toggle("Raumvorschau anzeigen", isOn: $roomViewIsVisible)
+            Toggle(
+                "Raumvorschau "
+                    + (roomViewIsVisible ? "schließen" : "anzeigen"),
+                isOn: $roomViewIsVisible
+            )
             .padding()
+        }
     }
 }
 
