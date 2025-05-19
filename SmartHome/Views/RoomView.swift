@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RoomView: View {
+    @Binding var roomViewIsVisible: Bool
     var body: some View {
         Image(systemName: "house.fill")
             .font(.system(size: 50))
@@ -19,5 +20,6 @@ struct RoomView: View {
 }
 
 #Preview {
-    RoomView()
+    @Previewable @State var roomViewIsVisible: Bool = true
+    RoomView(roomViewIsVisible: $roomViewIsVisible)
 }

@@ -31,7 +31,7 @@ struct SmartHomeView: View {
         }
         Spacer()
         if roomViewIsVisible {
-            RoomView()
+            RoomView(roomViewIsVisible: $roomViewIsVisible)
         }
         Toggle("Raumvorschau anzeigen", isOn: $roomViewIsVisible)
             .padding()
