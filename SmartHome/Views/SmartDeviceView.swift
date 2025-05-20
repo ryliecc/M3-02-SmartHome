@@ -11,15 +11,17 @@ struct SmartDeviceView: View {
     @Binding var smartDevices: [SmartDevice]
     
     var body: some View {
-        VStack {
-            ForEach(smartDevices, id: \.id) { smartDevice in
-                HStack {
-                    Image(systemName: smartDevice.type.sfSymbolName)
-                    Text(smartDevice.name)
-                    Spacer()
-                    Text(smartDevice.type.typeName)
+        ScrollView {
+            VStack {
+                ForEach(smartDevices, id: \.id) { smartDevice in
+                    HStack {
+                        Image(systemName: smartDevice.type.sfSymbolName)
+                        Text(smartDevice.name)
+                        Spacer()
+                        Text(smartDevice.type.typeName)
+                    }
+                    .padding()
                 }
-                .padding()
             }
         }
     }

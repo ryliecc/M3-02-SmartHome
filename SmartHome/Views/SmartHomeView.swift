@@ -36,9 +36,7 @@ struct SmartHomeView: View {
                 }
             }
         }
-        ScrollView {
-            SmartDeviceView(smartDevices: $smartDevices)
-        }
+        SmartDeviceView(smartDevices: $smartDevices)
         VStack {
             RoomView(roomViewIsVisible: $roomViewIsVisible)
             Toggle(
