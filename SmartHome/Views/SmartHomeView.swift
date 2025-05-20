@@ -12,6 +12,12 @@ struct SmartHomeView: View {
     @State var textInput: String = ""
     @State var roomViewIsVisible: Bool = false
 
+    var smartDevices: [SmartDevice] = [
+        SmartDevice(name: "Wohnzimmerlicht", type: .light()),
+        SmartDevice(name: "Heizung", type: .thermostat()),
+        SmartDevice(name: "Haustür", type: .lock()),
+    ]
+
     var body: some View {
         HStack {
             TextField("Gib einen Namen ein...", text: $textInput)
