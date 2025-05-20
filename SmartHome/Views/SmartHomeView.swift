@@ -17,6 +17,7 @@ struct SmartHomeView: View {
     @State var newLight: SmartDevice = SmartDevice(name: "", type: .light())
 
     var body: some View {
+        HeaderView()
         HStack {
             TextField("Neues Licht", text: $newLight.name)
             Button("Hinzufügen") {
