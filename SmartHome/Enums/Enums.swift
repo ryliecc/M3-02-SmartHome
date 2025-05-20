@@ -8,7 +8,7 @@
 import Foundation
 
 enum DeviceType {
-    case light
-    case thermostat
-    case lock
+    case light(isOn: Bool = false)
+    case thermostat(isOn: Bool = false, temperature: Double = 20)
+    case lock(isLocked: Bool = true)
 }
