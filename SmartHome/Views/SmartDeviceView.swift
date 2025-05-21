@@ -15,7 +15,7 @@ struct SmartDeviceView: View {
             VStack {
                 ForEach($smartDevices, id: \.id) { smartDevice in
                     HStack {
-                        Image(systemName: smartDevice.wrappedValue.info.sfSymbolName)
+                        Image(systemName: smartDevice.wrappedValue.type.sfSymbolName)
                         Text(smartDevice.wrappedValue.name)
                         Spacer()
                         Text(smartDevice.wrappedValue.type.rawValue)

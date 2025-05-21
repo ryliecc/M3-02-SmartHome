@@ -11,18 +11,16 @@ struct SmartDevice: Identifiable {
     var id: UUID = UUID()
     var name: String
     var type: DeviceType
-    var info: DeviceInfo
     
-    init(name: String, type: DeviceType) {
-        var info: DeviceInfo {
-            switch type {
-            case .light: .light(isOn: false)
-            case .thermostat: .thermostat(isOn: false, temperature: 20)
-            case .lock: .lock(isLocked: true)
-            }
-        }
+    var isOn: Bool
+    var temperature: Double
+    var isLocked: Bool
+    
+    init(name: String, type: DeviceType, isOn: Bool = false, temperature: Double = 20, isLocked: Bool = true) {
         self.name = name
         self.type = type
-        self.info = info
+        self.isOn = isOn
+        self.temperature = temperature
+        self.isLocked = isLocked
     }
 }

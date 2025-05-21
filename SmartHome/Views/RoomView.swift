@@ -9,16 +9,14 @@ import SwiftUI
 
 struct RoomView: View {
     @Binding var roomViewIsVisible: Bool
+    @Binding var smartDevices: [SmartDevice]
 
     var body: some View {
         ZStack {
             VStack {
-                Spacer()
                 if roomViewIsVisible {
                     VStack {
-                        Image("smarthome-example-room")
-                            .resizable()
-                            .scaledToFill()
+                        RoomPreviewView(smartDevices: $smartDevices)
                         Button {
                             roomViewIsVisible = false
                         } label: {
@@ -35,7 +33,7 @@ struct RoomView: View {
                                 )
                                 .clipShape(Circle())
                         }
-                        .offset(x: 180, y: -240)
+                        .offset(x: 180, y: -290)
                     }
                     .offset(y: 140)
                 }
@@ -43,17 +41,17 @@ struct RoomView: View {
                     Text("Raumvorschau " + (roomViewIsVisible ? "schließen" : "anzeigen"))
                         .font(Fonts.roomViewLabel)
                         .foregroundColor(.white)
-                        .offset(y: roomViewIsVisible ? 56 : 10)
+                        .offset(y: roomViewIsVisible ? 25 : 10)
                     Toggle(
                         "",
                         isOn: $roomViewIsVisible
                     )
                     .labelsHidden()
                     .padding()
-                    .offset(y: roomViewIsVisible ? 56 : 10)
+                    .offset(y: roomViewIsVisible ? 25 : 10)
                 }
                 .padding()
-                .frame(height: roomViewIsVisible ? 141 : 50)
+                .frame(height: roomViewIsVisible ? 80 : 50)
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .background( roomViewIsVisible ?
                     LinearGradient(
@@ -66,7 +64,7 @@ struct RoomView: View {
                                      green: 54 / 255,
                                      blue: 53 / 255).opacity(0),
                         ],
-                        startPoint: UnitPoint(x: 0.5, y: 0.6),
+                        startPoint: UnitPoint(x: 0.5, y: 0.4),
                         endPoint: .top
                     ) : LinearGradient(
                         colors: [
@@ -89,5 +87,10 @@ struct RoomView: View {
 
 #Preview {
     @Previewable @State var roomViewIsVisible: Bool = true
-    RoomView(roomViewIsVisible: $roomViewIsVisible)
+    @Previewable @State var smartDevices: [SmartDevice] = [
+        SmartDevice(name: "Wohnzimmerlicht", type: .light),
+        SmartDevice(name: "Heizung", type: .thermostat),
+        SmartDevice(name: "Haustür", type: .lock),
+    ]
+    RoomView(roomViewIsVisible: $roomViewIsVisible, smartDevices: $smartDevices)
 }
