@@ -13,12 +13,12 @@ struct SmartDeviceView: View {
     var body: some View {
         ScrollView {
             VStack {
-                ForEach(smartDevices, id: \.id) { smartDevice in
+                ForEach($smartDevices, id: \.id) { smartDevice in
                     HStack {
-                        Image(systemName: smartDevice.type.sfSymbolName)
-                        Text(smartDevice.name)
+                        Image(systemName: smartDevice.wrappedValue.info.sfSymbolName)
+                        Text(smartDevice.wrappedValue.name)
                         Spacer()
-                        Text(smartDevice.type.typeName)
+                        Text(smartDevice.wrappedValue.type.rawValue)
                     }
                     .padding()
                 }
@@ -29,9 +29,9 @@ struct SmartDeviceView: View {
 
 #Preview {
     @Previewable @State var smartDevices: [SmartDevice] = [
-        SmartDevice(name: "Wohnzimmerlicht", type: .light()),
-        SmartDevice(name: "Heizung", type: .thermostat()),
-        SmartDevice(name: "Haustür", type: .lock()),
+        SmartDevice(name: "Wohnzimmerlicht", type: .light),
+        SmartDevice(name: "Heizung", type: .thermostat),
+        SmartDevice(name: "Haustür", type: .lock),
     ]
     SmartDeviceView(smartDevices: $smartDevices)
 }

@@ -10,21 +10,30 @@ import SwiftUI
 struct SmartHomeView: View {
     @State var roomViewIsVisible: Bool = false
     @State var smartDevices: [SmartDevice] = [
-        SmartDevice(name: "Wohnzimmerlicht", type: .light()),
-        SmartDevice(name: "Heizung", type: .thermostat()),
-        SmartDevice(name: "Haustür", type: .lock()),
+        SmartDevice(name: "Wohnzimmerlicht", type: .light),
+        SmartDevice(name: "Heizung", type: .thermostat),
+        SmartDevice(name: "Haustür", type: .lock),
     ]
-    @State var newLight: SmartDevice = SmartDevice(name: "", type: .light())
+    @State var newDevice: SmartDevice = SmartDevice(name: "", type: .light)
+    
+    @State var selectedDeviceType: DeviceType = .light
 
     var body: some View {
         VStack {
             HeaderView()
             HStack {
-                TextField("Neues Licht", text: $newLight.name)
+                TextField("Neues Gerät", text: $newDevice.name)
+                Picker("Gerätetyp wählen", selection: $selectedDeviceType) {
+                    ForEach(DeviceType.allCases, id: \.id) { type in
+                        Text(type.rawValue).tag(type)
+                    }
+                }
+                .pickerStyle(.menu)
                 Button("Hinzufügen") {
-                    if newLight.name.count >= 1 {
-                        smartDevices.append(newLight)
-                        newLight = SmartDevice(name: "", type: .light())
+                    if newDevice.name.count >= 1 {
+                        newDevice = SmartDevice(name: newDevice.name, type: selectedDeviceType)
+                        smartDevices.append(newDevice)
+                        newDevice.name = ""
                     }
                 }
             }

@@ -7,24 +7,24 @@
 
 import Foundation
 
-enum DeviceType {
-    case light(isOn: Bool = false)
-    case thermostat(isOn: Bool = false, temperature: Double = 20)
-    case lock(isLocked: Bool = true)
+enum DeviceType: String, CaseIterable, Identifiable {
+    case light = "Licht"
+    case thermostat = "Thermostat"
+    case lock = "Schloss"
+    
+    var id: String {self.rawValue}
+}
+
+enum DeviceInfo {
+    case light(isOn: Bool)
+    case thermostat(isOn: Bool, temperature: Double)
+    case lock(isLocked: Bool)
     
     var sfSymbolName: String {
         switch self {
         case .light: "lightbulb"
         case .lock: "lock.fill"
         case .thermostat: "thermometer.transmission"
-        }
-    }
-    
-    var typeName: String {
-        switch self {
-        case .light: "Licht"
-        case .lock: "Schloss"
-        case .thermostat: "Thermostat"
         }
     }
 }
