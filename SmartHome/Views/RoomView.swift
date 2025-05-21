@@ -18,9 +18,7 @@ struct RoomView: View {
                     VStack {
                         Image("smarthome-example-room")
                             .resizable()
-                            .scaledToFit()
-                            .frame(width: 403)
-                            .zIndex(1)
+                            .scaledToFill()
                         Button {
                             roomViewIsVisible = false
                         } label: {
@@ -38,7 +36,6 @@ struct RoomView: View {
                                 .clipShape(Circle())
                         }
                         .offset(x: 180, y: -240)
-                        .zIndex(2)
                     }
                     .offset(y: 140)
                 }
@@ -56,7 +53,6 @@ struct RoomView: View {
                     .offset(y: roomViewIsVisible ? 56 : 10)
                 }
                 .padding()
-                .zIndex(3)
                 .frame(height: roomViewIsVisible ? 141 : 50)
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .background( roomViewIsVisible ?
@@ -92,6 +88,6 @@ struct RoomView: View {
 }
 
 #Preview {
-    @Previewable @State var roomViewIsVisible: Bool = false
+    @Previewable @State var roomViewIsVisible: Bool = true
     RoomView(roomViewIsVisible: $roomViewIsVisible)
 }
