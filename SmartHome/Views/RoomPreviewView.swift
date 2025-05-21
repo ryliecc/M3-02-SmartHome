@@ -20,7 +20,7 @@ struct RoomPreviewView: View {
         Grid(horizontalSpacing: 24, verticalSpacing: 16) {
             GridRow {
                 ForEach(lamps, id: \.id) { lamp in
-                    Image(systemName: lamp.type.sfSymbolName)
+                    Image(systemName: lamp.isOn ? "lightbulb.fill" : "lightbulb")
                         .font(.system(size: 40))
                         .foregroundStyle(lamp.isOn ? .yellow : .black)
                 }
@@ -28,15 +28,16 @@ struct RoomPreviewView: View {
             GridRow {
                 ForEach(thermostats, id: \.id) { thermostat in
                     HStack {
-                        Image(systemName: thermostat.type.sfSymbolName)
+                        Image(systemName: thermostat.temperature <= 10 ? "thermometer.low" : "thermometer.medium")
                             .font(.system(size: 40))
+                            .foregroundStyle(thermostat.temperature <= 10 ? .blue : .red)
                         Text("\(String(format: "%.0f", thermostat.temperature))°C")
                     }
                 }
             }
             GridRow {
                 ForEach(locks, id: \.id) { lock in
-                    Image(systemName: lock.type.sfSymbolName)
+                    Image(systemName: lock.isLocked ? "lock.fill" : "lock.open.fill")
                         .font(.system(size: 40))
                 }
             }

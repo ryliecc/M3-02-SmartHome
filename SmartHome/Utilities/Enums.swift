@@ -13,12 +13,4 @@ enum DeviceType: String, CaseIterable, Identifiable {
     case lock = "Schloss"
     
     var id: String {self.rawValue}
-    
-    var sfSymbolName: String {
-        switch self {
-        case .light: "lightbulb"
-        case .lock: "lock.fill"
-        case .thermostat: "thermometer.transmission"
-        }
-    }
 }
