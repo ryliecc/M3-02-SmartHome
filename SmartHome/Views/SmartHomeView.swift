@@ -17,26 +17,20 @@ struct SmartHomeView: View {
     @State var newLight: SmartDevice = SmartDevice(name: "", type: .light())
 
     var body: some View {
-        HeaderView()
-        HStack {
-            TextField("Neues Licht", text: $newLight.name)
-            Button("Hinzufügen") {
-                if newLight.name.count >= 1 {
-                    smartDevices.append(newLight)
-                    newLight = SmartDevice(name: "", type: .light())
+        VStack {
+            HeaderView()
+            HStack {
+                TextField("Neues Licht", text: $newLight.name)
+                Button("Hinzufügen") {
+                    if newLight.name.count >= 1 {
+                        smartDevices.append(newLight)
+                        newLight = SmartDevice(name: "", type: .light())
+                    }
                 }
             }
-        }
-        .padding()
-        SmartDeviceView(smartDevices: $smartDevices)
-        VStack {
-            RoomView(roomViewIsVisible: $roomViewIsVisible)
-            Toggle(
-                "Raumvorschau "
-                    + (roomViewIsVisible ? "schließen" : "anzeigen"),
-                isOn: $roomViewIsVisible
-            )
             .padding()
+            SmartDeviceView(smartDevices: $smartDevices)
+            RoomView(roomViewIsVisible: $roomViewIsVisible)
         }
     }
 }
