@@ -5,9 +5,9 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Aboreto-Regular.ttf</string>
-		<string>Raleway-Light</string>
-		<string>Raleway-Medium</string>
-		<string>Raleway-Regular</string>
+		<string>Raleway-Light.ttf</string>
+		<string>Raleway-Medium.ttf</string>
+		<string>Raleway-Regular.ttf</string>
 	</array>
 </dict>
 </plist>
