@@ -27,6 +27,7 @@ struct GridDeviceView: View {
                                 systemName: smartDevice.wrappedValue.isOn
                                 ? "lightbulb.fill" : "lightbulb"
                             )
+                            .font(.system(size: 36))
                             .foregroundColor(smartDevice.wrappedValue.isOn ? .white : .black)
                             .padding()
                         }
@@ -80,6 +81,7 @@ struct GridDeviceView: View {
                                 .padding(.leading)
                                 .padding(.trailing)
                             Image(systemName: smartDevice.wrappedValue.isLocked ? "lock.fill" : "lock.open.fill")
+                                .font(.system(size: 36))
                                 .foregroundColor(smartDevice.wrappedValue.isLocked ? .white : .black)
                                 .padding()
                         }

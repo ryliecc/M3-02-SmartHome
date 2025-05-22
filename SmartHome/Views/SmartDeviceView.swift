@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SmartDeviceView: View {
     @Binding var smartDevices: [SmartDevice]
-    @State var listView: String = "Grid"
+    @State var listView: String = "List"
 
     var body: some View {
         ScrollView {
