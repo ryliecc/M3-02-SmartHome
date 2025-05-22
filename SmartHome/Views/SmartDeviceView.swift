@@ -9,104 +9,20 @@ import SwiftUI
 
 struct SmartDeviceView: View {
     @Binding var smartDevices: [SmartDevice]
+    @State var listView: String = "Grid"
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 16) {
-                ForEach($smartDevices, id: \.id) { smartDevice in
-                    if smartDevice.wrappedValue.type == .light {
-                        HStack {
-                            Image(systemName: "lightbulb")
-                                .font(.system(size: 32))
-                            Spacer()
-                            VStack {
-                                Text(smartDevice.wrappedValue.name)
-                                    .font(Fonts.deviceName)
-                                Spacer()
-                                Text(smartDevice.wrappedValue.type.rawValue)
-                                    .font(Fonts.deviceTypeName)
-                            }
-                            .padding()
-                            Spacer()
-                            Toggle("", isOn: smartDevice.isOn)
-                                .labelsHidden()
-                        }
-                        .frame(height: 65)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(
-                            RoundedRectangle(cornerRadius: 9).fill(
-                                Color(
-                                    red: 217 / 255,
-                                    green: 217 / 255,
-                                    blue: 217 / 255
-                                )
-                            )
-                        )
-                    } else if smartDevice.wrappedValue.type == .thermostat {
-                        HStack {
-                            Image(systemName: "thermometer.high")   .font(.system(size: 32))
-                            Spacer()
-                            VStack {
-                                Text(smartDevice.wrappedValue.name)
-                                    .font(Fonts.deviceName)
-                                Spacer()
-                                Text(smartDevice.wrappedValue.type.rawValue)
-                                    .font(Fonts.deviceTypeName)
-                            }
-                            .padding()
-                            Spacer()
-                            VStack {
-                                Text("\(String(format: "%.0f", smartDevice.wrappedValue.temperature))°C")
-                                    .font(Fonts.temperatureLabel)
-                                Stepper("", value: smartDevice.temperature, step: 1)
-                                    .labelsHidden()
-                            }
-                        }
-                        .frame(height: 65)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(
-                            RoundedRectangle(cornerRadius: 9).fill(
-                                Color(
-                                    red: 217 / 255,
-                                    green: 217 / 255,
-                                    blue: 217 / 255
-                                )
-                            )
-                        )
-                    } else {
-                        HStack {
-                            Image(systemName: "lock.fill")   .font(.system(size: 32))
-                            Spacer()
-                            VStack {
-                                Text(smartDevice.wrappedValue.name)
-                                    .font(Fonts.deviceName)
-                                Spacer()
-                                Text(smartDevice.wrappedValue.type.rawValue)
-                                    .font(Fonts.deviceTypeName)
-                            }
-                            .padding()
-                            Spacer()
-                            Toggle("", isOn: smartDevice.isLocked)
-                                .labelsHidden()
-                        }
-                        .frame(height: 65)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(
-                            RoundedRectangle(cornerRadius: 9).fill(
-                                Color(
-                                    red: 217 / 255,
-                                    green: 217 / 255,
-                                    blue: 217 / 255
-                                )
-                            )
-                        )
-                    }
-                }
+            Picker("", selection: $listView) {
+                Text("List").tag("List")
+                Text("Grid").tag("Grid")
             }
-            .padding()
+            .pickerStyle(.segmented)
+            if listView == "List" {
+                ListDeviceView(smartDevices: $smartDevices)
+            } else {
+                GridDeviceView(smartDevices: $smartDevices)
+            }
         }
     }
 }
