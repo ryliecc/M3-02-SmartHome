@@ -9,10 +9,18 @@ import SwiftUI
 
 struct ListDeviceView: View {
     @Binding var smartDevices: [SmartDevice]
+    @Binding var listView: String
+
     var body: some View {
-        VStack(spacing: 16) {
+        List {
+            Picker("", selection: $listView) {
+                Text("List").tag("List")
+                Text("Grid").tag("Grid")
+            }
+            .pickerStyle(.segmented)
             ForEach($smartDevices, id: \.id) { smartDevice in
-                if smartDevice.wrappedValue.type == .light {
+                switch smartDevice.wrappedValue.type {
+                case .light:
                     HStack {
                         Image(
                             systemName: smartDevice.wrappedValue.isOn
@@ -44,7 +52,7 @@ struct ListDeviceView: View {
                             )
                         )
                     )
-                } else if smartDevice.wrappedValue.type == .thermostat {
+                case .thermostat:
                     HStack {
                         Image(systemName: "thermometer.high").font(
                             .system(size: 32)
@@ -79,7 +87,7 @@ struct ListDeviceView: View {
                             )
                         )
                     )
-                } else {
+                case .lock:
                     HStack {
                         Image(
                             systemName: smartDevice.wrappedValue
@@ -96,12 +104,30 @@ struct ListDeviceView: View {
                         }
                         .padding()
                         Spacer()
-                        Button(smartDevice.wrappedValue.isLocked ? "Gesperrt" : "Offen") {
-                            smartDevice.wrappedValue.isLocked = !smartDevice.wrappedValue.isLocked
+                        Button(
+                            smartDevice.wrappedValue.isLocked
+                                ? "Gesperrt" : "Offen"
+                        ) {
+                            smartDevice.wrappedValue.isLocked = !smartDevice
+                                .wrappedValue.isLocked
                         }
                         .foregroundColor(.white)
                         .frame(width: 90, height: 34)
-                        .background(RoundedRectangle(cornerRadius: 8).fill(smartDevice.wrappedValue.isLocked ? Color(red: 194 / 255, green: 70 / 255, blue: 63 / 255) : Color(red: 88 / 255, green: 75 / 255, blue: 83 / 255)))
+                        .background(
+                            RoundedRectangle(cornerRadius: 8).fill(
+                                smartDevice.wrappedValue.isLocked
+                                    ? Color(
+                                        red: 194 / 255,
+                                        green: 70 / 255,
+                                        blue: 63 / 255
+                                    )
+                                    : Color(
+                                        red: 88 / 255,
+                                        green: 75 / 255,
+                                        blue: 83 / 255
+                                    )
+                            )
+                        )
                     }
                     .frame(height: 65)
                     .frame(maxWidth: .infinity)
@@ -117,8 +143,15 @@ struct ListDeviceView: View {
                     )
                 }
             }
+            .onDelete(perform: delete)
         }
-        .padding()    }
+        .listStyle(.plain)
+        .padding(.top, 10)
+    }
+
+    func delete(at offsets: IndexSet) {
+        smartDevices.remove(atOffsets: offsets)
+    }
 }
 
 #Preview {
@@ -130,5 +163,6 @@ struct ListDeviceView: View {
         SmartDevice(name: "Haustür", type: .lock),
         SmartDevice(name: "Tresor", type: .lock, isLocked: false),
     ]
-    ListDeviceView(smartDevices: $smartDevices)
+    @Previewable @State var listView: String = "List"
+    ListDeviceView(smartDevices: $smartDevices, listView: $listView)
 }

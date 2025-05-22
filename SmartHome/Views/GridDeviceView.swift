@@ -9,12 +9,19 @@ import SwiftUI
 
 struct GridDeviceView: View {
     @Binding var smartDevices: [SmartDevice]
+    @Binding var listView: String
     
     let columns = Array(repeating: GridItem(.flexible()), count: 3)
     
     var body: some View {
-        LazyVGrid(columns: columns) {
-            ForEach($smartDevices, id: \.id) { smartDevice in
+        ScrollView {
+            Picker("", selection: $listView) {
+                Text("List").tag("List")
+                Text("Grid").tag("Grid")
+            }
+            .pickerStyle(.segmented)
+            LazyVGrid(columns: columns) {
+                ForEach($smartDevices, id: \.id) { smartDevice in
                     if smartDevice.wrappedValue.type == .light {
                         VStack(alignment: .center, spacing: 10) {
                             Text(smartDevice.wrappedValue.name)
@@ -34,16 +41,16 @@ struct GridDeviceView: View {
                         .frame(width: 108, height: 108)
                         .background(
                             RoundedRectangle(cornerRadius: 9).fill(smartDevice.wrappedValue.isOn ?
-                                Color(
-                                    red: 54 / 255,
-                                    green: 54 / 255,
-                                    blue: 53 / 255
-                                ) : Color(
-                                    red: 217 / 255,
-                                    green: 217 / 255,
-                                    blue: 217 / 255
-                                )
-                            )
+                                                                   Color(
+                                                                    red: 54 / 255,
+                                                                    green: 54 / 255,
+                                                                    blue: 53 / 255
+                                                                   ) : Color(
+                                                                    red: 217 / 255,
+                                                                    green: 217 / 255,
+                                                                    blue: 217 / 255
+                                                                   )
+                                                                  )
                         )
                     } else if smartDevice.wrappedValue.type == .thermostat {
                         VStack(alignment: .center, spacing: 10) {
@@ -66,10 +73,10 @@ struct GridDeviceView: View {
                         .frame(width: 108, height: 108)
                         .background(
                             RoundedRectangle(cornerRadius: 9).fill(Color(
-                                    red: 217 / 255,
-                                    green: 217 / 255,
-                                    blue: 217 / 255
-                                )
+                                red: 217 / 255,
+                                green: 217 / 255,
+                                blue: 217 / 255
+                            )
                             )
                         )
                     } else {
@@ -88,20 +95,22 @@ struct GridDeviceView: View {
                         .frame(width: 108, height: 108)
                         .background(
                             RoundedRectangle(cornerRadius: 9).fill(smartDevice.wrappedValue.isLocked ?
-                                Color(
-                                    red: 54 / 255,
-                                    green: 54 / 255,
-                                    blue: 53 / 255
-                                ) : Color(
-                                    red: 217 / 255,
-                                    green: 217 / 255,
-                                    blue: 217 / 255
-                                )
-                            )
+                                                                   Color(
+                                                                    red: 54 / 255,
+                                                                    green: 54 / 255,
+                                                                    blue: 53 / 255
+                                                                   ) : Color(
+                                                                    red: 217 / 255,
+                                                                    green: 217 / 255,
+                                                                    blue: 217 / 255
+                                                                   )
+                                                                  )
                         )
                     }
+                }
             }
         }
+        .padding()
     }
 }
 
@@ -114,5 +123,6 @@ struct GridDeviceView: View {
         SmartDevice(name: "Haustür", type: .lock),
         SmartDevice(name: "Tresor", type: .lock, isLocked: false),
     ]
-    GridDeviceView(smartDevices: $smartDevices)
+    @Previewable @State var listView: String = "Grid"
+    GridDeviceView(smartDevices: $smartDevices, listView: $listView)
 }

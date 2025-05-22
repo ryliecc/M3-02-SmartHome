@@ -12,17 +12,10 @@ struct SmartDeviceView: View {
     @State var listView: String = "List"
 
     var body: some View {
-        ScrollView {
-            Picker("", selection: $listView) {
-                Text("List").tag("List")
-                Text("Grid").tag("Grid")
-            }
-            .pickerStyle(.segmented)
-            if listView == "List" {
-                ListDeviceView(smartDevices: $smartDevices)
-            } else {
-                GridDeviceView(smartDevices: $smartDevices)
-            }
+        if listView == "List" {
+            ListDeviceView(smartDevices: $smartDevices, listView: $listView)
+        } else {
+            GridDeviceView(smartDevices: $smartDevices, listView: $listView)
         }
     }
 }
