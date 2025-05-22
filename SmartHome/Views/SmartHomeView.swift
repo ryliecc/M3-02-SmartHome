@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SmartHomeView: View {
-    @State var roomViewIsVisible: Bool = false
+    @State var roomViewIsVisible: Bool = true
     @State var smartDevices: [SmartDevice] = [
         SmartDevice(name: "Wohnzimmerlicht", type: .light),
         SmartDevice(name: "Lichterkette", type: .light, isOn: true),
@@ -22,7 +22,7 @@ struct SmartHomeView: View {
     @State var selectedDeviceType: DeviceType = .light
 
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             HeaderView()
             HStack {
                 TextField("Neues Gerät", text: $newDevice.name)

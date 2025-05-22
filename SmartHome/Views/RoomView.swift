@@ -33,22 +33,23 @@ struct RoomView: View {
                                 )
                                 .clipShape(Circle())
                         }
-                        .offset(x: 180, y: -290)
+                        .position(x: 370, y: -260)
                     }
-                    .offset(y: 140)
+                    .position(x: 201, y: 138)
                 }
-                HStack(spacing: 32) {
+                HStack {
                     Text("Raumvorschau " + (roomViewIsVisible ? "schließen" : "anzeigen"))
+                        .frame(minWidth: 190)
                         .font(Fonts.roomViewLabel)
                         .foregroundColor(.white)
-                        .offset(y: roomViewIsVisible ? 25 : 10)
+                        .position(x: 180, y: roomViewIsVisible ? 50 : 20)
                     Toggle(
                         "",
                         isOn: $roomViewIsVisible
                     )
                     .labelsHidden()
                     .padding()
-                    .offset(y: roomViewIsVisible ? 25 : 10)
+                    .position(x: 140, y: roomViewIsVisible ? 50 : 20)
                 }
                 .padding()
                 .frame(height: roomViewIsVisible ? 80 : 50)

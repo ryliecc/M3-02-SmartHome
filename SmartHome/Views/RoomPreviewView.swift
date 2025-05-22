@@ -42,9 +42,8 @@ struct RoomPreviewView: View {
                 }
             }
         }
-        .frame(height: 210)
+        .frame(height: 284)
         .frame(maxWidth: .infinity)
-        .padding(.bottom, 80)
         .background(Color(
             red: 136 / 255,
             green: 160 / 255,
