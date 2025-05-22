@@ -64,12 +64,7 @@ struct ListDeviceView: View {
                                 "\(String(format: "%.0f", smartDevice.wrappedValue.temperature))°C"
                             )
                             .font(Fonts.temperatureLabel)
-                            Stepper(
-                                "",
-                                value: smartDevice.temperature,
-                                step: 1
-                            )
-                            .labelsHidden()
+                            Slider(value: smartDevice.temperature, in: 0...40)
                         }
                     }
                     .frame(height: 65)
