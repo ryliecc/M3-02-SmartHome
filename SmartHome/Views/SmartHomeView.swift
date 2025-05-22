@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SmartHomeView: View {
-    @State var roomViewIsVisible: Bool = true
+    @State var roomViewIsVisible: Bool = false
     @State var smartDevices: [SmartDevice] = [
         SmartDevice(name: "Wohnzimmerlicht", type: .light),
         SmartDevice(name: "Lichterkette", type: .light, isOn: true),

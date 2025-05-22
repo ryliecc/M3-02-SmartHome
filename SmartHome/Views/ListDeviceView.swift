@@ -101,8 +101,12 @@ struct ListDeviceView: View {
                         }
                         .padding()
                         Spacer()
-                        Toggle("", isOn: smartDevice.isLocked)
-                            .labelsHidden()
+                        Button(smartDevice.wrappedValue.isLocked ? "Gesperrt" : "Offen") {
+                            smartDevice.wrappedValue.isLocked = !smartDevice.wrappedValue.isLocked
+                        }
+                        .foregroundColor(.white)
+                        .frame(width: 90, height: 34)
+                        .background(RoundedRectangle(cornerRadius: 8).fill(smartDevice.wrappedValue.isLocked ? Color(red: 194 / 255, green: 70 / 255, blue: 63 / 255) : Color(red: 88 / 255, green: 75 / 255, blue: 83 / 255)))
                     }
                     .frame(height: 65)
                     .frame(maxWidth: .infinity)
