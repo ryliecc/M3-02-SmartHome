@@ -27,12 +27,16 @@ struct RoomPreviewView: View {
             }
             GridRow {
                 ForEach(thermostats, id: \.id) { thermostat in
-                    HStack {
-                        Image(systemName: thermostat.temperature <= 10 ? "thermometer.low" : "thermometer.medium")
-                            .font(.system(size: 40))
-                            .foregroundStyle(thermostat.temperature <= 10 ? .blue : .red)
+                    Gauge(value: thermostat.temperature, in: 0.0...40.0) {
+                        Text("\(thermostat.name)")
+                    } currentValueLabel: {
                         Text("\(String(format: "%.0f", thermostat.temperature))°C")
                     }
+                    .gaugeStyle(.accessoryCircular)
+                    .tint(AngularGradient(
+                        gradient: Gradient(colors: [.red, .blue, .blue]),
+                        center: .top
+                    ))
                 }
             }
             GridRow {
