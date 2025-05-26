@@ -28,7 +28,7 @@ struct RoomPreviewView: View {
             GridRow {
                 ForEach(thermostats, id: \.id) { thermostat in
                     Gauge(value: thermostat.temperature, in: 0.0...40.0) {
-                        Text("\(thermostat.name)")
+                        Text("")
                     } currentValueLabel: {
                         Text("\(String(format: "%.0f", thermostat.temperature))°C")
                     }
